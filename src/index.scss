@@ -1,0 +1,259 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap");
+
+$color-background: #051544;
+$color-accent-light: #7bf762;
+$color-accent-dark: #5a8f4f;
+$color-accent-background: #1c3c16;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  font-family: "Roboto Mono", monospace;
+  height: 100%;
+  width: 100%;
+  background-color: $color-background;
+  font-size: 14px;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  background-color: $color-background;
+  color: $color-accent-dark;
+  letter-spacing: 0.2em;
+}
+
+.configurator {
+  display: grid;
+  width: 60%;
+  padding: 2rem;
+  border: 1px solid $color-accent-light;
+  border-radius: 8px;
+  gap: 2rem;
+  grid-template-areas:
+    "title title"
+    "options cart";
+  grid-template-columns: 5fr 3fr;
+}
+
+.categories {
+  grid-area: options;
+}
+
+.configurator h1 {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  color: $color-accent-light;
+  font-size: 24px;
+  font-weight: 400;
+  grid-area: title;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+.cart-container {
+  grid-area: cart;
+}
+
+.cart {
+  display: grid;
+  padding: 1rem 0;
+  border: 1px solid $color-accent-light;
+  background-color: $color-accent-background;
+  border-radius: 10px;
+  color: $color-accent-light;
+  font-size: 14px;
+  gap: 1rem;
+  grid-template-columns: 5fr 1fr;
+  letter-spacing: 0.4em;
+  line-height: 1.75;
+}
+
+.cart > .costs {
+  color: $color-accent-dark;
+  justify-self: start;
+  margin-inline-end: 1rem;
+}
+
+.items {
+  margin-inline: 1rem;
+}
+
+.items:not(.total),
+.costs:not(.total) {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.cart > .total {
+  font-size: 18px;
+  letter-spacing: 0.2em;
+}
+
+.cart hr {
+  height: 0;
+  border: 0.5px solid;
+  margin: 0;
+  background-color: $color-accent-light;
+  color: $color-accent-light;
+  grid-column: 1 / span 2;
+}
+
+.option {
+  position: relative;
+}
+
+.categories > .option + .option {
+  margin-top: 4rem;
+}
+
+.module-container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1.5rem;
+}
+
+.module {
+  display: grid;
+  overflow: hidden;
+  flex: 0 1 11rem;
+  padding-top: 0.75rem;
+  border: 1px solid $color-accent-dark;
+  border-radius: 8px;
+  font-size: 14px;
+  gap: 0.3rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+  transition-duration: 0.15s;
+  transition-property: border, box-shadow, color;
+  cursor: pointer;
+}
+
+.module .name {
+  margin-bottom: 0.5rem;
+}
+
+.module .cost + .name {
+  margin-bottom: 1rem;
+}
+
+.module .cost {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+/* Is this the right approach when considering accessibility? */
+.module input[type="radio"] {
+  display: none;
+}
+
+.selected {
+  border-color: $color-accent-light;
+  box-shadow: 0 0 10px $color-accent-light;
+  color: $color-accent-light;
+}
+
+.option-category {
+  margin-top: 0;
+  color: $color-accent-light;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.color-box {
+  width: 4rem;
+  height: 2rem;
+  border-radius: 8px;
+  justify-self: center;
+}
+
+.option-module {
+  grid-template-rows: 1rem 2rem 1fr;
+}
+
+.option-module .cost {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  padding-block: 0.5rem;
+}
+
+.package-details {
+  overflow: hidden;
+  margin: 0;
+  background-color: $color-accent-background;
+  border-radius: 8px;
+  font-size: 12px;
+  letter-spacing: normal;
+  list-style-type: "▲";
+  padding-block: 1rem;
+  padding-inline-end: 1rem;
+  padding-inline-start: 1.5rem;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.package-details > li {
+  line-height: 1.75;
+  padding-inline-start: 0.5rem;
+}
+
+/* Desktop */
+@media screen and (min-width: 1000px) {
+  /* If we want the top of the cart to align with the first row
+  of options, rather than the title of the category, this is what
+  we must do. */
+  .option-category {
+    position: absolute;
+    transform: translateY(calc(-18px - 1rem));
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 1000px) {
+  .configurator {
+    padding: 0.5rem;
+    grid-template-areas:
+      "title"
+      "cart"
+      "options";
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 1000px) {
+  .cart {
+    margin: min(0.3rem, 1rem);
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 1000px) {
+  .module-container {
+    justify-content: center;
+  }
+
+  .module {
+    flex: 0 1 10rem;
+  }
+
+  .option-category {
+    text-align: center;
+  }
+}
